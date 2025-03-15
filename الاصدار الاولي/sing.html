@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: white;
+            text-align: center;
+            padding-top: 80px;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu {
+            display: flex;
+            gap: 15px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+
+        .profile-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 5px;
+        }
+
+        .search-input {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .search-button {
+            padding: 5px 10px;
+            border: none;
+            background-color: blue;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .form-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            background: white;
+            text-align: right;
+        }
+
+        .form-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: right;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            background-color: darkblue;
+        }
+    </style>
+</head>
+<body dir="rtl">
+    
+    <div class="navbar">
+        <div class="menu">
+            <a href="index.html">الرئيسية</a>
+            <a href="aboutus.html">من نحن</a>
+            <a href="contact.html">التواصل معنا</a>
+        </div>
+    </div>
+    <div class="form-container">
+        <h2>تسجيل الدخول</h2>
+        <form id="signup-form">
+            <div class="form-group">
+                <label for="first-name">الاسم الأول</label>
+                <input type="text" id="first-name" name="first-name" required>
+                <div class="error-message" id="first-name-error">يجب إدخال اسم صحيح بدون أرقام</div>
+            </div>
+
+            <div class="form-group">
+                <label for="middle-name">الاسم الثاني</label>
+                <input type="text" id="middle-name" name="middle-name" required>
+                <div class="error-message" id="middle-name-error">يجب إدخال اسم صحيح بدون أرقام</div>
+            </div>
+
+            <div class="form-group">
+                <label for="last-name">اسم العائلة</label>
+                <input type="text" id="last-name" name="last-name" required>
+                <div class="error-message" id="last-name-error">يجب إدخال اسم صحيح بدون أرقام</div>
+            </div>
+
+            <div class="form-group">
+                <label for="phone-number">رقم الهاتف</label>
+                <input type="text" id="phone-number" name="phone-number" required>
+                <div class="error-message" id="phone-number-error">يجب أن يكون الرقم مكونًا من 10 أرقام</div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">البريد الإلكتروني</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <button type="submit" class="submit-button">تسجيل</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("signup-form").addEventListener("submit", function(event) {
+            let isValid = true;
+
+            function validateName(inputId, errorId) {
+                const nameValue = document.getElementById(inputId).value.trim();
+                const nameRegex = /^[\u0600-\u06FFa-zA-Z\s]+$/;
+                if (!nameRegex.test(nameValue)) {
+                    document.getElementById(errorId).style.display = "block";
+                    isValid = false;
+                } else {
+                    document.getElementById(errorId).style.display = "none";
+                }
+            }
+
+            validateName("first-name", "first-name-error");
+            validateName("middle-name", "middle-name-error");
+            validateName("last-name", "last-name-error");
+
+            const phoneNumber = document.getElementById("phone-number").value.trim();
+            const phoneRegex = /^\d{10}$/;
+            if (!phoneRegex.test(phoneNumber)) {
+                document.getElementById("phone-number-error").style.display = "block";
+                isValid = false;
+            } else {
+                document.getElementById("phone-number-error").style.display = "none";
+            }
+
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
+
